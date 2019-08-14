@@ -7,10 +7,39 @@
   <title>Lista de tareas</title>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="css/all.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
   <div id="app">
-    {{titulo}}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mt-5 bg-light">
+            <div class="card-body p-5">
+              <h2>{{titulo}}</h2>
+              <div class="input-group">
+                <input type="text" placeholder="Escribe una nueva tarea" v-model="newTask" class="form-control" v-on:keyup.enter="addTask">
+                <button type="button" class="btn btn-primary" v-on:click="addTask">Agregar</button>
+              </div>
+              <ul class="list-group mt-3">
+                <li v-for="(task, index) of tasks" class="list-group-item" v-bind:class="{finished: task.finished}">
+                  {{ task.texto }}
+                  <div class="float-right">
+                    <button type="button" class="btn btn-success" v-on:click="task.finished = !task.finished">
+                      <i class="fas fa-check-circle"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger" v-on:click="removeTask(index)">
+                      <i class="fas fa-times-circle"></i>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
